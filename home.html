@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href=".img/Workers_symbol.png" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Poppins&display=swap" rel="stylesheet">
+    <title>Home | Ilhwae</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins';
+        }
+
+        body {
+            background: #3b3d43;
+        }
+
+        button {
+            border: 0;
+            padding: 0;
+            font-family: inherit;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .navbar {
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 64px;
+            background: #f8f8f8;
+            color: #080808;
+            font-family: 'Poppins';
+            box-sizing: border-box;
+        }
+
+        .navbar-overlay {
+            position: fixed;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        body.open .navbar-overlay {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .navbar-burger {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: grid;
+            place-items: center;
+            width: 64px;
+            height: 64px;
+            padding: 0;
+        }
+
+        body.open .navbar-burger {
+            z-index: 5;
+        }
+
+        .navbar-title {
+            margin: 0;
+            font-family: 'Noto Sans KR';
+            font-size: 24px;
+        }
+
+        .navbar-menu {
+            position: fixed;
+            z-index: 3;
+            top: 0;
+            right: 0;
+            translate: 100% 0;
+            width: 200px;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            gap: 8px;
+            flex-direction: column;
+            align-items: flex-start;
+            background: #e0e0e0;
+            visibility: hidden;
+            transition: translate 0.3s;
+        }
+
+        body.open .navbar-menu{
+            translate: 0 0;
+            visibility: visible;
+        }
+
+        @media only screen and (min-width: 600px) {
+            .navbar-menu {
+                position: static;
+                translate: 0 0;
+                width: auto;
+                background: transparent;
+                flex-direction: row;
+                visibility: visible;
+            }
+
+            .navbar {
+                justify-content: space-between;
+                padding: 0 0 0 16px;
+            }
+            
+            .navbar-overlay {
+                display: none;
+            }
+
+            .navbar-burger {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .Affiliations-contents {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        
+        .navbar-menu > button {
+            color: rgba(8, 8, 8, 0.5);
+            background: transparent;
+            padding: 0 8px;
+        }
+        
+        .navbar-menu > button.active {
+            color: inherit;
+        }
+
+        .Affiliations-contents {
+            display: grid !important;
+            grid-template-columns: repeat(5, auto);
+            gap: 20px;
+        }
+
+        .Affiliate {
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            height: 400px;
+            width: 225px;
+            background: #f8f8f8;
+            margin: auto;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .Affiliate > p {
+            margin: auto 10px;
+            font-size: 10px;
+        }
+
+        .Affiliate img {
+            align-self: center;
+        }
+
+        .website-contents {
+            margin-top: 64px;
+        }
+
+        .president {
+            margin: 10px;
+        }
+
+        .members-contents {
+            display: flex;
+            flex-direction: column;
+            width: 85%;
+            margin: auto;
+            align-items: center;
+            text-align: center;
+            background: #f5f5f5;
+            /* border-radius: 20px; */
+        }
+
+        .members-contents .content{
+            display: flex;
+            width: 200px;
+            height: 250px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            background: #a0a0a0;
+            border: solid #f5f5f5;
+            border-radius: 15px;
+        }
+
+        .members-contents h2 {
+            background: #a0a0a0;
+        }
+
+        .VVIPs-contents, .President-contents {
+            display: flex;
+            gap: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            font-family:inherit;
+            color: inherit;
+        }
+        </style>
+</head>
+<body>
+    <nav class="navbar">
+        <img src=".img/Workers_logo.webp" alt="ilhaehwe" class="navbar-logo" height="64px">
+        <h1 class="navbar-title">일화에</h1>
+        <div class="navbar-overlay" onclick="Open()"></div>
+        <button type="button" class="navbar-burger" onclick="Open()">
+            <span class="material-icons">MENU</span>
+        </button>
+        <nav class="navbar-menu">
+            <a href="#Affiliations">Affiliations</a>
+            <a href="#members">Members</a>
+            <a href="#Souvenirs" >Souvenirs</a>
+        </nav>
+    </nav>
+
+    <section class="website-contents">
+        <div class="Affiliations" id="Affiliations">
+            <h2>Affiliations</h2>
+            <div class="Affiliations-contents">
+                <div class="Affiliate 1">
+                    <h3>Grimm Plastic Surgery</h3>
+                    <img src=".img/Affiliate 1.png" alt="Grimm Plastic Surgery" height="200px" width="200px">
+                    <label class="president 1">President<br>Baek Hangyeoul</label>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit aperiam, impedit reiciendis nulla molestiae aliquam?</p>
+                </div>
+                <div class="Affiliate 2">
+                    <h3>Casino</h3>
+                    <img src=".img/Affiliate 2.webp" alt="" height="200px" width="200px">
+                    <label class="president 2">President<br>Mitsuki Soma</label>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, ex harum temporibus iusto possimus eius!</p>
+                </div>
+                <div class="Affiliate 3">
+                    <h3>Club Vivi</h3>
+                    <img src=".img/Affiliate 3.webp" alt="" height="200px" width="200px">
+                    <label class="president 3">President<br>Vivi</label>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo ullam illum, unde veniam reprehenderit ducimus!</p>
+                </div>
+                <div class="Affiliate 4">
+                    <h3>ONE MCN</h3>
+                    <img src=".img/Affiliate 4.png" alt="" height="200px" width="200px">
+                    <label class="president 4">President<br>Seo Seonggun</label>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus error ipsa fuga nostrum nam? Odit!</p>
+                </div>
+                <div class="Affiliate 5">
+                    <h3>Loaning Business</h3>
+                    <img src=".img/Affiliate 5.png" alt="" height="200px" width="200px">
+                    <label class="president 5">President<br>Jang Hyun</label>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi perferendis voluptas vel, ipsa harum rem?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="members" id="members">
+            <h2>MEMBERS</h2>
+            <div class="members-contents">
+                <div class="chairman">
+                    <h2>Chairman</h2>
+                    <div class="content">
+                        <img src=".img/Chairman/Yoojin.png" alt="Yoojin" height="175px" width="175px">
+                        <label>Yoojin</label>
+                    </div>
+                </div>
+                <div class="vice-chairman">
+                    <h2>Vice Chairman</h2>
+                    <div class="content">
+                        <img src=".img/Chairman/Bang Mandeok.png" alt="Bang Mandeok" height="175px" width="175px">
+                        <label>Bang Mandeok</label>
+                    </div>    
+                </div>
+                <div class="VVIPs">
+                    <h2>VVIPs</h2>
+                    <div class="VVIPs-contents">
+                        <div class="content 1">
+                            <img src=".img/VVIPs/Choi Dongsoo.png" alt="Choi Dongsoo" height="175px" width="175px">
+                        <label>Choi Dongsoo</label>
+                        </div>
+                        <div class="content 2">
+                            <img src=".img/VVIPs/Park Jinyoung.png" alt="Park Jinyoung" height="175px" width="175px">
+                            <label>Park Jinyoung</label>
+                        </div>
+                        <div class="content 3">
+                            <img src=".img/VVIPs/Park Jonggun.png" alt="Park Jonggun" height="175px" width="175px">
+                            <label>Park Jonggun</label>
+                        </div>
+                        <div class="content 4">
+                            <img src=".img/VVIPs/Kim Junggo.png" alt="Kim Junggo" height="175px" width="175px">
+                            <label>Kim Junggo</label>
+                        </div>
+                        <div class="content 5">
+                            <img src=".img/VVIPs/Yuseong.png" alt="Yuseong" height="175px" width="175px">
+                            <label>Yuseong</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Presidents">
+                    <h2>Presidents</h2>
+                    <div class="President-contents">
+                        <div class="content 1">
+                            <img src=".img/Presidents/Baek Hangyeol.png" alt="Baek Hangyeoul" height="175px" width="175px">
+                            <label>Baek Hangyeoul</label>
+                        </div>
+                        <div class="content 2">
+                            <img src=".img/Presidents/Kitsune Soma.png" alt="Kitsune Soma" height="175px" width="175px">
+                            <label>Kitsune Soma</label>
+                        </div>
+                        <div class="content 3">
+                            <img src=".img/Presidents/Vivi.png" alt="Vivi" height="175px" width="175px">
+                            <label>Vivi</label>
+                        </div>
+                        <div class="content 4">
+                            <img src=".img/Presidents/Seo Seongeun.png" alt="Seo Seongeun" height="175px" width="175px">
+                            <label>Seo Seongeun</label>
+                        </div>
+                        <div class="content 5">
+                            <img src=".img/Presidents/Janghyun.png" alt="Janghyun" height="175px" width="175px">
+                            <label>Janghyun</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function Open() {document.body.classList.toggle('open')}
+    </script>
+</body>
+</html>
